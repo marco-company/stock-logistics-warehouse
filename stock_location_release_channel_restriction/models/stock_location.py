@@ -43,6 +43,11 @@ class StockLocation(models.Model):
         help="If specified the restriction specified will apply to "
         "the current location and all its children",
     )
+    release_channel_restriction_in_move = fields.Boolean(
+        string="Release Channel Restriction For Incoming Moves",
+        help="Check this box if you want to take into account all pending incoming movements"
+        " to restrict the future movements to be in the same release channel.",
+    )
 
     @api.model
     def _selection_release_channel_restriction(self):

@@ -27,6 +27,25 @@ class StockMoveLine(models.Model):
             )
 
     @property
+    def _has_incoming_location_release_channel_restriction(self):
+        """
+        For better readability, this will check if incoming operations restriction
+        is applicable
+        """
+        destination_channel = self.for_restriction_destination_location_channel_id
+        return bool(
+            self.location_dest_id.release_channel_restriction_in_move
+            and (
+                len(
+                    self.location_dest_id.pending_in_move_line_ids.picking_id.release_channel_id
+                )
+                > 1
+                or self.location_dest_id.pending_in_move_line_ids.picking_id.release_channel_id
+                != destination_channel
+            )
+        )
+
+    @property
     def _has_destination_location_release_channel_restriction(self):
         """
         Check if the destination location has no pending moves
@@ -37,7 +56,11 @@ class StockMoveLine(models.Model):
         destination_channel = self.for_restriction_destination_location_channel_id
         return bool(
             self.location_dest_id.release_channel_restriction == "same"
-            and self.picking_id.release_channel_id != destination_channel
+            and (
+                destination_channel
+                and (self.picking_id.release_channel_id != destination_channel)
+                or self._has_incoming_location_release_channel_restriction
+            )
         )
 
     def _action_done(self):

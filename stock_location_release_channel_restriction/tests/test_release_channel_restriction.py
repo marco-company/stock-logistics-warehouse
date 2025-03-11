@@ -14,6 +14,11 @@ class TestReleaseChannelRestriction(BaseCommon):
         cls.default_channel = cls.env.ref(
             "stock_release_channel.stock_release_channel_default"
         )
+        cls.channel_2 = cls.env["stock.release.channel"].create(
+            {
+                "name": "Channel 2",
+            }
+        )
         cls.customers = cls.env.ref("stock.stock_location_customers")
         cls.warehouse = cls.env.ref("stock.warehouse0")
         cls.warehouse.delivery_steps = "pick_ship"  # to have an output
@@ -194,3 +199,53 @@ class TestReleaseChannelRestriction(BaseCommon):
         )
 
         self.picking_2._action_done()
+
+    def test_release_channel_restriction_pending_incoming(self):
+        """
+
+        Assign the channel to the first delivery
+        Transfer the linked picking
+        """
+        self.out_1.release_channel_restriction_in_move = True
+        self.delivery_1 = self.env["stock.picking"].search(
+            [
+                ("move_ids.location_id", "=", self.out.id),
+                ("product_id", "=", self.product.id),
+                ("group_id", "=", self.group_1.id),
+            ]
+        )
+        self.delivery_1.assign_release_channel()
+        self.assertEqual(self.default_channel, self.delivery_1.release_channel_id)
+        self.picking_1 = self.env["stock.picking"].search(
+            [
+                ("move_ids.location_id", "=", self.warehouse.lot_stock_id.id),
+                ("product_id", "=", self.product.id),
+                ("group_id", "=", self.group_1.id),
+            ]
+        )
+        self.picking_1.release_channel_id = self.default_channel
+        self.picking_1.move_line_ids.location_dest_id = self.out_1
+        self.picking_1.move_line_ids.qty_done = (
+            self.picking_1.move_line_ids.reserved_qty
+        )
+
+        # Set the second delivery in the second channel
+        self.delivery_2 = self.env["stock.picking"].search(
+            [
+                ("move_ids.location_id", "=", self.out.id),
+                ("product_id", "=", self.product.id),
+                ("group_id", "=", self.group_2.id),
+            ]
+        )
+        self.delivery_2.release_channel_id = self.channel_2
+        self.picking_2 = self.env["stock.picking"].search(
+            [
+                ("move_ids.location_id", "=", self.warehouse.lot_stock_id.id),
+                ("product_id", "=", self.product.id),
+                ("group_id", "=", self.group_2.id),
+            ]
+        )
+        self.picking_2.release_channel_id = self.channel_2
+
+        with self.assertRaises(ReleaseChannelLocationRestrictionError):
+            self.picking_1._action_done()
