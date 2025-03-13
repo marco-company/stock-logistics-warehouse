@@ -249,3 +249,51 @@ class TestReleaseChannelRestriction(BaseCommon):
 
         with self.assertRaises(ReleaseChannelLocationRestrictionError):
             self.picking_1._action_done()
+
+    def test_release_channel_restriction_pending_incoming_done(self):
+        """
+        Set both deliveries and pickings in same channel
+        Transfer the first picking
+        No error should be raised
+        """
+        self.out_1.release_channel_restriction_in_move = True
+        self.delivery_1 = self.env["stock.picking"].search(
+            [
+                ("move_ids.location_id", "=", self.out.id),
+                ("product_id", "=", self.product.id),
+                ("group_id", "=", self.group_1.id),
+            ]
+        )
+        self.delivery_1.assign_release_channel()
+        self.assertEqual(self.default_channel, self.delivery_1.release_channel_id)
+        self.picking_1 = self.env["stock.picking"].search(
+            [
+                ("move_ids.location_id", "=", self.warehouse.lot_stock_id.id),
+                ("product_id", "=", self.product.id),
+                ("group_id", "=", self.group_1.id),
+            ]
+        )
+        self.picking_1.release_channel_id = self.default_channel
+        self.picking_1.move_line_ids.location_dest_id = self.out_1
+        self.picking_1.move_line_ids.qty_done = (
+            self.picking_1.move_line_ids.reserved_qty
+        )
+
+        # Set the second delivery in the second channel
+        self.delivery_2 = self.env["stock.picking"].search(
+            [
+                ("move_ids.location_id", "=", self.out.id),
+                ("product_id", "=", self.product.id),
+                ("group_id", "=", self.group_2.id),
+            ]
+        )
+        self.delivery_2.release_channel_id = self.default_channel
+        self.picking_2 = self.env["stock.picking"].search(
+            [
+                ("move_ids.location_id", "=", self.warehouse.lot_stock_id.id),
+                ("product_id", "=", self.product.id),
+                ("group_id", "=", self.group_2.id),
+            ]
+        )
+        self.picking_2.release_channel_id = self.default_channel
+        self.picking_1._action_done()

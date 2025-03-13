@@ -33,15 +33,14 @@ class StockMoveLine(models.Model):
         is applicable
         """
         destination_channel = self.for_restriction_destination_location_channel_id
+        in_channel = (
+            self.location_dest_id.pending_in_move_line_ids.picking_id.release_channel_id
+        )
         return bool(
             self.location_dest_id.release_channel_restriction_in_move
             and (
-                len(
-                    self.location_dest_id.pending_in_move_line_ids.picking_id.release_channel_id
-                )
-                > 1
-                or self.location_dest_id.pending_in_move_line_ids.picking_id.release_channel_id
-                != destination_channel
+                len(in_channel) > 1
+                or (destination_channel and in_channel != destination_channel)
             )
         )
 
@@ -64,7 +63,6 @@ class StockMoveLine(models.Model):
         )
 
     def _action_done(self):
-
         for line in self:
             if line._has_destination_location_release_channel_restriction:
                 raise ReleaseChannelLocationRestrictionError(
