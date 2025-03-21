@@ -6,38 +6,40 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2025-03-21 15:06+0000\n"
+"Last-Translator: İsmail Çağan Yılmaz <ismail.cagan.yilmaz@gmail.com>\n"
 "Language-Team: none\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10.2\n"
 
 #. module: stock_inventory
 #: model:ir.model.fields,field_description:stock_inventory.field_stock_inventory__count_stock_quants
 msgid "# Adjustments"
-msgstr ""
+msgstr "# Ayarlamalar"
 
 #. module: stock_inventory
 #: model:ir.model.fields,field_description:stock_inventory.field_stock_inventory__message_needaction
 msgid "Action Needed"
-msgstr ""
+msgstr "Eylem Gerekiyor"
 
 #. module: stock_inventory
 #: model:ir.model.fields,field_description:stock_inventory.field_stock_inventory__action_state_to_cancel_allowed
 msgid "Action State To Cancel Allowed"
-msgstr ""
+msgstr "Eylem Durumu İptal Edilebilir"
 
 #. module: stock_inventory
 #: model:ir.model.fields,field_description:stock_inventory.field_stock_inventory__count_stock_quants_string
 msgid "Adjustments"
-msgstr ""
+msgstr "Ayarlamalar"
 
 #. module: stock_inventory
 #: model:ir.model.fields.selection,name:stock_inventory.selection__stock_inventory__product_selection__all
 msgid "All Products"
-msgstr ""
+msgstr "Tüm Ürünler"
 
 #. module: stock_inventory
 #: model:ir.model.fields,field_description:stock_inventory.field_stock_inventory__responsible_id
