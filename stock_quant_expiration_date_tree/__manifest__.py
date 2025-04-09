@@ -8,7 +8,7 @@
     "version": "16.0.1.0.0",
     "license": "AGPL-3",
     "author": "Xtendoo, Odoo Community Association (OCA)",
-    "maintainers": ["Manuel Calero"],
+    "maintainers": ["manuelcalerosolis"],
     "website": "https://github.com/OCA/stock-logistics-warehouse",
     "depends": ["stock", "product_expiry"],
     "data": ["views/stock_quant.xml"],
