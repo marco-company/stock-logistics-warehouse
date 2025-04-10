@@ -71,13 +71,13 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-.. |maintainer-Manuel Calero| image:: https://github.com/Manuel Calero.png?size=40px
-    :target: https://github.com/Manuel Calero
-    :alt: Manuel Calero
+.. |maintainer-manuelcalerosolis| image:: https://github.com/manuelcalerosolis.png?size=40px
+    :target: https://github.com/manuelcalerosolis
+    :alt: manuelcalerosolis
 
 Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
 
-|maintainer-Manuel Calero| 
+|maintainer-manuelcalerosolis| 
 
 This module is part of the `OCA/stock-logistics-warehouse <https://github.com/OCA/stock-logistics-warehouse/tree/16.0/stock_quant_expiration_date_tree>`_ project on GitHub.
 
