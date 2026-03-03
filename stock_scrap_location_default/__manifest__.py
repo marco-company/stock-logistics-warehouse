@@ -4,7 +4,8 @@
 {
     "name": "Stock Scrap Location Default",
     "summary": """
-        Allows to define a setting at company level that reference a default scrap location""",
+        Allows to define a setting at company level that
+        reference a default scrap location""",
     "version": "16.0.1.0.0",
     "license": "AGPL-3",
     "author": "ACSONE SA/NV,Odoo Community Association (OCA)",
