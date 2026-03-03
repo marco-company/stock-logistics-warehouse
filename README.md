@@ -51,7 +51,7 @@ addon | version | maintainers | summary
 [stock_location_product_restriction](stock_location_product_restriction/) | 16.0.1.2.2 | <a href='https://github.com/lmignon'><img src='https://github.com/lmignon.png' width='32' height='32' style='border-radius:50%;' alt='lmignon'/></a> <a href='https://github.com/rousseldenis'><img src='https://github.com/rousseldenis.png' width='32' height='32' style='border-radius:50%;' alt='rousseldenis'/></a> | Prevent to mix different products into the same stock location
 [stock_location_release_channel_restriction](stock_location_release_channel_restriction/) | 16.0.1.1.2 | <a href='https://github.com/rousseldenis'><img src='https://github.com/rousseldenis.png' width='32' height='32' style='border-radius:50%;' alt='rousseldenis'/></a> | This module allows to restrict location content to products that are in the same release channel (moves).
 [stock_location_zone](stock_location_zone/) | 16.0.1.0.2 |  | Classify locations with zones.
-[stock_lot_multi_image](stock_lot_multi_image/) | 16.0.1.0.0 |  | This module implements the possibility to have multiple images for a stock lot
+[stock_lot_multi_image](stock_lot_multi_image/) | 16.0.1.0.1 |  | This module implements the possibility to have multiple images for a stock lot
 [stock_move_auto_assign](stock_move_auto_assign/) | 16.0.1.1.3 |  | Try to reserve moves when goods enter in a location
 [stock_move_auto_assign_auto_release](stock_move_auto_assign_auto_release/) | 16.0.1.2.1 |  | Auto release moves after auto assign
 [stock_move_auto_assign_auto_release_exclude_location](stock_move_auto_assign_auto_release_exclude_location/) | 16.0.1.0.1 |  | Exclude locations from auto release moves after auto assign
