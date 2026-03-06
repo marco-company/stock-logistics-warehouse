@@ -35,13 +35,17 @@ class TestStockRequestPurchaseRequest(common.TransactionCase):
         self.stock_request_user = new_test_user(
             self.env,
             login="stock_request_user",
-            groups="stock_request.group_stock_request_user",
+            groups="stock_request.group_stock_request_user, "
+            "purchase_request.group_purchase_request_user, "
+            "purchase.group_purchase_user",
             company_ids=[(6, 0, [self.main_company.id, self.company_2.id])],
         )
         self.stock_request_manager = new_test_user(
             self.env,
             login="stock_request_manager",
-            groups="stock_request.group_stock_request_manager",
+            groups="stock_request.group_stock_request_manager, "
+            "purchase_request.group_purchase_request_manager, "
+            "purchase.group_purchase_user",
             company_ids=[(6, 0, [self.main_company.id, self.company_2.id])],
         )
         self.route_buy = self.warehouse.buy_pull_id.route_id
@@ -67,7 +71,7 @@ class TestStockRequestPurchaseRequest(common.TransactionCase):
                 "company_id": company_id,
                 "type": "product",
                 "route_ids": [(6, 0, self.route_buy.ids)],
-                "seller_ids": [(0, 0, {"name": self.supplier.id, "delay": 5})],
+                "seller_ids": [(0, 0, {"partner_id": self.supplier.id, "delay": 5})],
                 "purchase_request": True,
             }
         )
@@ -108,8 +112,6 @@ class TestStockRequestPurchaseRequest(common.TransactionCase):
         self.assertEqual(order.state, "open")
         self.assertEqual(order.stock_request_ids.state, "open")
 
-        order.refresh()
-
         self.assertEqual(len(order.sudo().purchase_request_ids), 1)
         self.assertEqual(len(order.picking_ids), 0)
         self.assertEqual(len(order.move_ids), 0)
@@ -124,7 +126,6 @@ class TestStockRequestPurchaseRequest(common.TransactionCase):
         self.assertEqual(
             purchase_request.company_id, order.stock_request_ids[0].company_id
         )
-        purchase_request.refresh()
         self.assertEqual(len(purchase_request.sudo().line_ids), 1)
 
         purchase_request_line = purchase_request.sudo().line_ids[0]

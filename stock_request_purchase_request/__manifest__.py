@@ -5,19 +5,18 @@
     "name": "Stock Request Purchase Request",
     "summary": """
         Stock Request Purchase Request""",
-    "version": "14.0.1.0.0",
+    "version": "16.0.1.0.0",
     "license": "AGPL-3",
-    "author": "Escodoo,Odoo Community Association (OCA)",
+    "author": "Escodoo, Odoo Community Association (OCA)",
+    "maintainers": ["marcelsavegnago"],
     "website": "https://github.com/OCA/stock-logistics-warehouse",
     "depends": [
         "stock_request",
         "purchase_request",
     ],
     "data": [
-        #     'views/stock_rule.xml',
         "views/stock_request.xml",
         "views/stock_request_order.xml",
-        #     'views/purchase_request_line.xml',
         "views/purchase_request.xml",
     ],
     "demo": [],

@@ -24,7 +24,7 @@ class StockRequest(models.Model):
         copy=False,
     )
 
-    @api.depends("purchase_line_ids")
+    @api.depends("purchase_request_line_ids")
     def _compute_purchase_request_ids(self):
         for request in self:
             request.purchase_request_ids = request.purchase_request_line_ids.mapped(
@@ -53,8 +53,10 @@ class StockRequest(models.Model):
         res = super().action_cancel()
         for record in self:
             record.sudo().purchase_request_ids.filtered(
-                lambda x: x.state not in ("done", "rejected")
-                and x.stock_request_ids == record
+                lambda x, record=record: (
+                    x.state not in ("done", "rejected")
+                    and x.stock_request_ids == record
+                )
             ).button_rejected()
         return res
 
