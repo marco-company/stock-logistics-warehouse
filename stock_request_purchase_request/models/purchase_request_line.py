@@ -6,7 +6,6 @@ from odoo.exceptions import ValidationError
 
 
 class PurchaseRequestLine(models.Model):
-
     _inherit = "purchase.request.line"
 
     stock_request_ids = fields.Many2many(

@@ -5,7 +5,6 @@ from odoo import api, models
 
 
 class StockRule(models.Model):
-
     _inherit = "stock.rule"
 
     @api.model

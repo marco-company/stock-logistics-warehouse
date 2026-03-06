@@ -5,7 +5,6 @@ from odoo import api, fields, models
 
 
 class PurchaseRequest(models.Model):
-
     _inherit = "purchase.request"
 
     stock_request_ids = fields.Many2many(

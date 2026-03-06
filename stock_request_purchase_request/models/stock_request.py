@@ -6,7 +6,6 @@ from odoo.exceptions import ValidationError
 
 
 class StockRequest(models.Model):
-
     _inherit = "stock.request"
 
     purchase_request_ids = fields.One2many(
